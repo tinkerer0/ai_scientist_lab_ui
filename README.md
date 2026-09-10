@@ -1,57 +1,43 @@
-# AI Scientist Lab · UI
+# AI Scientist Lab UI
 
-AI Scientist Lab 소개·데모 **랜딩 페이지**. 단일 self-contained HTML 한 장으로, 검정 배경 위 3D dot 파티클 필드가 스크롤에 따라 자율 연구 파이프라인의 8단계(Plan → Literature → Hypothesis → Data → Analysis → Paper → Review → Record)를 시각화한다.
+[포트폴리오](https://github.com/tinkerer0/tinkerer0) · **화면 데모 / 합성 시연**
 
-## Status
+연구 토픽에서 문헌 탐색, 가설, 데이터 분석, 원고 작성, 검토와 기록까지 이어지는 흐름을 시각화한 화면 데모입니다. 스크롤에 따라 3D 점 입자와 단계별 카드가 전환됩니다.
 
-- **Last reviewed:** 2026-07-17
-- **Maturity:** 정적 프론트 데모 (단일 `index.html`)
-- **이 저장소가 하는 일 / 하지 않는 일**
-  - ✅ 브라우저에서 스크립트된 SIM 시연(자동 스크롤, 카드 출력 타이핑, 비용·시간 티커 애니메이션)
-  - ❌ 백엔드 서버 없음 · API 호출 없음 · 실데이터 로드 없음 · 모델 추론 없음
-  - ❌ 화면에 표시되는 단계 출력·elapsed·cost 누적은 **합성 데모 값**이며 실제 파이프라인 결과·청구가 아니다
-  - ❌ 이 저장소만으로 “연구 토픽을 실제로 끝까지 실행”할 수 없다
+[데모 보기](https://tinkerer0.github.io/ai_scientist_lab_ui/)
 
-> ⚠️ **SIM 경계 (필수 읽기)**
-> 페이지 본문·도움말·확인 다이얼로그에는 “real time and cost”, “real data”, “pipeline runs itself end to end”, “Every step has been logged” 같은 **제품 내러티브 문구**가 들어 있다. 그 문장은 전체 연구 파이프라인 제품 경험을 설명하는 카피이며, **이 HTML이 그 작업을 수행한다는 뜻이 아니다.**
-> 카드 하단 라벨은 명시적으로 `SIM · synthetic demo output`이고, RUN 시퀀스는 로컬 타이머로 합성 출력을 채운 뒤 “Run complete” UI로 끝난다. 백엔드·실데이터·실비용 청구는 없다.
+**이 페이지는 합성 출력을 보여주는 시뮬레이션입니다.** RUN을 눌러도 모델 추론, 데이터 분석 또는 논문 작성이 실행되지 않습니다. 표시되는 결과·경과 시간·비용도 실제 연구 결과나 청구 내역이 아닙니다. 화면 일부의 “real data”나 “end to end” 같은 표현은 제품 경험을 설명하는 문구이며, 이 데모의 실행 기능을 뜻하지 않습니다.
 
-Private 백엔드/파이프라인 저장소 내부는 이 공개 저장소 범위 밖이며, 여기서 링크하거나 구현 세부사항을 단정하지 않는다.
+## 사용법
 
-## 보기
+- 스크롤로 연구 단계 사이를 이동합니다.
+- 왼쪽 위 `?` 버튼에서 도움말을 확인합니다.
+- 토픽을 입력하고 **RUN**을 누르면 확인창을 거쳐 자동 스크롤 시연이 시작됩니다.
 
-- 라이브: https://tinkerer0.github.io/ai_scientist_lab_ui/
-- 로컬 (미실행 안내): `index.html`을 브라우저로 열거나, 저장소 루트에서 정적 서버로 서빙
-  ```bash
-  python3 -m http.server
-  # 브라우저에서 http://localhost:8000 접속
-  ```
+## 로컬 실행
 
-## 사용
+`index.html`을 브라우저로 열거나, 저장소 폴더에서 다음 명령을 실행하고 `http://localhost:8000`에 접속합니다.
 
-- 스크롤로 단계 전환 (데스크탑 폭에서 좌측에 진행 레일 표시)
-- 좌상단 `?` — 사용법·주의사항 도움말 (첫 방문 시 자동 표시; 닫으면 `localStorage` 키 `astlab_help_seen`에 기록)
-- 토픽 입력 후 **RUN** — 확인창을 거쳐 **자동 스크롤 SIM 시연** (실실행 아님)
+```bash
+python3 -m http.server 8000
+```
 
-## 네트워크 · 저장 · 의존성
+별도의 빌드나 패키지 설치는 필요 없습니다.
 
-| 구분 | 내용 |
-|------|------|
-| 의존성 | 순수 HTML/CSS/Canvas. 빌드·패키지 매니저 없음 |
-| 네트워크 | 글꼴 CSS 1건: jsDelivr Pretendard CDN (`pretendard@v1.3.9`). 그 외 `fetch`/XHR/WebSocket 없음 |
-| 로컬 저장 | `localStorage` — 도움말 “이미 봄” 플래그만 (`astlab_help_seen`) |
-| 비용 티커 | `STAGE_COST` 등 하드코딩된 합성 수치로 누적 표시 (실제 과금 아님) |
+## 기술과 데이터
 
-## 구성
+| 항목 | 내용 |
+| --- | --- |
+| 구현 | HTML, CSS, Canvas로 구성한 단일 `index.html` |
+| 외부 요청 | jsDelivr의 Pretendard 글꼴 CSS |
+| 서버·API | 백엔드 서버와 모델 API 호출 없음 |
+| 브라우저 저장 | 도움말 확인 여부만 `localStorage`의 `astlab_help_seen`에 저장 |
+| 출력과 비용 | 미리 정한 합성 시연 값 |
 
-- `index.html` — UI·3D 필드·8단계 카드·RUN 시퀀스 전부
-- `LICENSE` — MIT
-- `README.md` — 이 문서
-
-## License
-
-MIT (`LICENSE` 파일 기준).
-
----
+## 기여·피드백
 
 제가 이런 분야를 접한 지 얼마 안 돼서 부족한 점이 많습니다. 고칠 점이나 알려주실 내용이 있다면 issue나 PR로 남겨주시면 너무 감사하겠습니다.
+
+## 라이선스
+
+[MIT](LICENSE)
